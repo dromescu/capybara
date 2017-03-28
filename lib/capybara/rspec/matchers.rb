@@ -267,4 +267,24 @@ module Capybara
       BecomeClosed.new(options)
     end
   end
+
+  module RSpecMatcherProxies
+    if defined?(RSpec::Matchers::BuiltIn::All)
+      def all(*args)
+        if args.first.respond_to? :matches?
+          RSpec::Matchers::BuiltIn::All.new(*args)
+        else
+          find_all(*args)
+        end
+      end
+    end
+
+    def within(*args)
+      if block_given?
+        within_element(*args, &Proc.new)
+      else
+        be_within(*args)
+      end
+    end
+  end
 end

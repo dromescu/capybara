@@ -36,6 +36,35 @@ RSpec.describe 'capybara/rspec', :type => :feature do
   it "switches to the given driver when giving it as metadata", :driver => :culerity do
     expect(Capybara.current_driver).to eq(:culerity)
   end
+
+  context "#all" do
+    it "allows access to the Capybara finder" do
+      visit('/with_html')
+      expect(all(:css, 'h2.head').size).to eq(5)
+    end
+
+    it "allows access to the RSpec matcher" do
+      skip "RSpec < 3 doesn't have an `all` matcher" if rspec2?
+
+      visit('/with_html')
+      expect(["test1", "test2"]).to all(be_a(String))
+    end
+  end
+
+  context "#within" do
+    it "allows access to the Capybara scoper" do
+      visit('/with_html')
+      expect do
+        within(:css, "#does_not_exist") { click_link "Go to simple" }
+      end.to raise_error(Capybara::ElementNotFound)
+    end
+
+    it "allows access to the RSpec matcher" do
+      visit('/with_html')
+      # This reads terribly, but must call #within
+      expect(find(:css, 'span.number').text.to_i).to within(1).of(41)
+    end
+  end
 end
 
 RSpec.describe 'capybara/rspec', :type => :other do

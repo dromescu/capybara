@@ -39,6 +39,7 @@ module Capybara
         Capybara.match = :smart
         Capybara.wait_on_first_by_default = false
         Capybara.enable_aria_label = false
+        Capybara.clear_storage_on_reset = true
       end
 
       def filter(requires, metadata)

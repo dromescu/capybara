@@ -109,6 +109,9 @@ module Capybara
     #
     def reset!
       if @touched
+        if Capybara.clear_storage_on_reset && @server && !driver.clear_storage
+          visit("/__clear_storage__")
+        end
         driver.reset!
         @touched = false
       end

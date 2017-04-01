@@ -8,7 +8,7 @@ Capybara.register_driver :selenium_marionette do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :firefox,
-    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.firefox(marionette: true)
+    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.firefox(marionette: true),
   )
 end
 

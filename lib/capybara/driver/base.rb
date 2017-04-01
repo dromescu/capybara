@@ -135,6 +135,10 @@ class Capybara::Driver::Base
   def reset!
   end
 
+  def clear_storage
+    return false
+  end
+
   def needs_server?
     false
   end

@@ -26,7 +26,7 @@ module Capybara
     attr_accessor :default_selector, :default_max_wait_time, :ignore_hidden_elements
     attr_accessor :save_path, :wait_on_first_by_default, :automatic_label_click, :automatic_reload
     attr_reader :reuse_server
-    attr_accessor :raise_server_errors, :server_errors
+    attr_accessor :raise_server_errors, :server_errors, :clear_storage_on_reset
     attr_writer :default_driver, :current_driver, :javascript_driver, :session_name, :server_host
     attr_reader :save_and_open_page_path
     attr_accessor :exact_text
@@ -58,6 +58,7 @@ module Capybara
     # [automatic_label_click = Boolean]   Whether Node#choose, Node#check, Node#uncheck will attempt to click the associated label element if the checkbox/radio button are non-visible (Default: false)
     # [enable_aria_label = Boolean]  Whether fields, links, and buttons will match against aria-label attribute (Default: false)
     # [reuse_server = Boolean]  Reuse the server thread between multiple sessions using the same app object (Default: true)
+    # [clear_storage_on_reset = Boolean]  Clear localStorage and sessionStorage when session is reset (Default: false)
     # === DSL Options
     #
     # when using capybara/dsl, the following options are also available:
@@ -504,6 +505,7 @@ Capybara.configure do |config|
   config.automatic_label_click = false
   config.enable_aria_label = false
   config.reuse_server = true
+  config.clear_storage_on_reset = false
 end
 
 Capybara.register_driver :rack_test do |app|
